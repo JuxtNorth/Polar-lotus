@@ -20,8 +20,8 @@ body {
 
 canvas#renderer {
 	height: 100dvh;
-	width: 100dwh;
+	width: 100dvw;
 	background: #000;
 	touch-action: none;
-	display: flex;
+	display: block;
 }

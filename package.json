@@ -10,8 +10,10 @@
 		"format": "prettier . --write"
 	},
 	"devDependencies": {
+		"@types/node": "^20.11.24",
 		"prettier": "^3.2.5",
 		"typescript": "^5.2.2",
-		"vite": "^5.1.4"
+		"vite": "^5.1.4",
+		"vite-plugin-checker": "^0.6.4"
 	}
 }
