@@ -33,7 +33,8 @@ function setupGUI () {
 	const gui = new GUI();
 	gui.open(false);
 	
-	const { constants } = renderer.config;
+	const { config } = renderer;
+	const { constants } = config;
 	const folder = gui.addFolder("contants");
 	
 	const numerator = folder.addFolder("numerator");
@@ -45,4 +46,6 @@ function setupGUI () {
 		["f", "g", "h", "i", "j"].forEach(key => {
 		denominator.add(constants[key as keyof typeof constants], "value", -6, 6).name(key);
 	});
+	
+	gui.add(config.rotation, "value", -6.82, 6.82).name("rotation");
 }

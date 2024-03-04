@@ -31,6 +31,8 @@ uniform float j;
 uniform vec3 colorStop1;
 uniform vec3 colorStop2;
 
+uniform float rotation;
+
 float r(float theta) {
 	float numerator = abs(cos(theta * a)) + b - abs(cos(theta * c + PI / d)) * e;
 	float denominator = f + abs(cos(theta * g + PI / h)) * i;
@@ -60,7 +62,7 @@ void main() {
 	float dist = length(delta);
 	float theta = PI + atan(delta.y, delta.x);
 
-	float r1 = r(theta);
+	float r1 = r(rotation + theta);
 
 	float radius = 0.15;
 

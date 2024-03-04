@@ -18,6 +18,7 @@ type Constants = {
 
 interface RendererConfig {
 	constants: Constants;
+	rotation: UniformValue<number>
 	colourStop1: UniformValue<[number, number, number]>;
 	colourStop2: UniformValue<[number, number, number]>;
 }
@@ -30,6 +31,7 @@ export class Renderer extends Canvas {
 
 	public config: {
 		constants: Required<Constants>;
+		rotation: UniformValue<number>
 		colorStop1: UniformValue<[number, number, number]>;
 		colorStop2: UniformValue<[number, number, number]>;
 	};
@@ -48,8 +50,9 @@ export class Renderer extends Canvas {
 				g: { value: 6.0 },
 				h: { value: 2.0 },
 				i: { value: 8.0 },
-				j: { value: 2.0 }
+				j: { value: 2.0 },
 			},
+			rotation: { value: 0.3 },
 			colorStop1: { value: [ 1, 0, 0 ] },
 			colorStop2: { value: [ 1, 0, 1 ] },
 		};
@@ -86,6 +89,7 @@ export class Renderer extends Canvas {
 		this.shaderProgram.initUniforms({
 			u_size: { value: super.size },
 			...this.config.constants,
+			rotation: this.config.rotation,
 			colorStop1: this.config.colorStop1,
 			colorStop2: this.config.colorStop2,
 		});
