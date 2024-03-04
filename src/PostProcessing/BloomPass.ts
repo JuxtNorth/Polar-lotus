@@ -186,7 +186,6 @@ export class BloomPass extends EffectPass {
 		gl.disable(gl.BLEND);
 
 		// Final Pass
-
 		this.finalProgram!.bind();
 
 		this.finalProgram!.uploadUniforms();
@@ -200,7 +199,7 @@ export class BloomPass extends EffectPass {
 		gl.drawArrays(gl.TRIANGLES, 0, 6);
 		destination.unbind(gl);
 
-		// Overlay
+	/*	// Overlay
 		this.overlayProgram!.bind();
 		this.overlayProgram!.uploadUniforms();
 
@@ -219,7 +218,7 @@ export class BloomPass extends EffectPass {
 
 		gl.viewport(0, 0, this.preFrameBuffer!.sizeX, this.preFrameBuffer!.sizeY);
 		gl.drawArrays(gl.TRIANGLES, 0, 6);
-
+*/
 		return destination.texture;
 	}
 }
