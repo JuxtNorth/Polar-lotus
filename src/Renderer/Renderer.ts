@@ -14,10 +14,10 @@ type ConstantKeys = 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j';
 
 type Constants = {
 	[key in ConstantKeys]?: UniformValue<number>;
-}
+};
 
 interface RendererConfig {
-	constants: Constants
+	constants: Constants;
 }
 
 export class Renderer extends Canvas {
@@ -25,17 +25,17 @@ export class Renderer extends Canvas {
 	private shaderProgram: WebGLShaderProgram;
 	private fbo: WebGLFrameBuffer;
 	private effectComposer?: EffectComposer;
-	
+
 	public config: {
-		constants: Required<Constants>
+		constants: Required<Constants>;
 	};
 
 	constructor(dom: HTMLCanvasElement, config: Partial<RendererConfig> = {}) {
 		super(dom);
-		
+
 		this.config = {
 			constants: {
-				a: { value: 3.0  },
+				a: { value: 3.0 },
 				b: { value: 0.25 },
 				c: { value: 3.0 },
 				d: { value: 2.0 },
@@ -47,12 +47,9 @@ export class Renderer extends Canvas {
 				j: { value: 2.0 }
 			}
 		};
-		
-		Object.assign(
-			this.config.constants,
-			config.constants || {}
-		);
-		
+
+		Object.assign(this.config.constants, config.constants || {});
+
 		this.getGLContext();
 
 		const gl = this.gl as GLContext;

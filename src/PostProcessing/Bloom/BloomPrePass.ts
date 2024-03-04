@@ -9,25 +9,23 @@ export class BloomPrePass extends EffectPass {
 	private program?: WebGLShaderProgram;
 
 	setup(gl: GLContext) {
-		
 		this.fbo = new WebGLFrameBuffer(gl);
 		this.requiresUpdate = false;
 		this.program = new WebGLShaderProgram(gl, {
 			vs: vs,
 			fs: fs
 		});
-		
+
 		const thresh = 0.3;
 
 		let knee = thresh * 0.7 + 0.0001;
 		let curve = [thresh - knee, knee * 2, 0.25 / knee];
-		
+
 		this.program.initUniforms({
 			texelSize: { value: this.fbo.texelSize },
 			curve: { value: curve },
 			threshold: { value: thresh }
 		});
-		
 	}
 
 	render(gl: GLContext, texture: WebGLTexture): WebGLTexture {
@@ -38,7 +36,7 @@ export class BloomPrePass extends EffectPass {
 		this.fbo.bind(gl);
 		this.program.bind();
 		this.program.uploadUniforms();
-		
+
 		gl.bindTexture(gl.TEXTURE_2D, texture);
 		gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
 		gl.clear(gl.COLOR_BUFFER_BIT);

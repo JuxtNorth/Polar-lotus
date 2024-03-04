@@ -1,14 +1,8 @@
-import "./style.css";
-import { Renderer } from "@/Renderer";
-import {
-	EffectComposer,
-	BlurPass,
-	BloomPass
-} from "@/PostProcessing";
+import './style.css';
+import { Renderer } from '@/Renderer';
+import { EffectComposer, BlurPass, BloomPass } from '@/PostProcessing';
 
-const canvas = <HTMLCanvasElement>(
-	document.getElementById("renderer")!
-);
+const canvas = <HTMLCanvasElement>document.getElementById('renderer')!;
 
 const constants = {
 	a: { value: 3.0 }

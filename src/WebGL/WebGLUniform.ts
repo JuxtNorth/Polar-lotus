@@ -1,6 +1,6 @@
 import { GLContext, GLULocation } from '@/WebGL';
 
-export type UniformValue<T> = { value: T }
+export type UniformValue<T> = { value: T };
 
 export class WebGLUniform {
 	private cache: number[] = [];
