@@ -18,6 +18,8 @@ type Constants = {
 
 interface RendererConfig {
 	constants: Constants;
+	colourStop1: UniformValue<[number, number, number]>;
+	colourStop2: UniformValue<[number, number, number]>;
 }
 
 export class Renderer extends Canvas {
@@ -28,6 +30,8 @@ export class Renderer extends Canvas {
 
 	public config: {
 		constants: Required<Constants>;
+		colorStop1: UniformValue<[number, number, number]>;
+		colorStop2: UniformValue<[number, number, number]>;
 	};
 
 	constructor(dom: HTMLCanvasElement, config: Partial<RendererConfig> = {}) {
@@ -45,7 +49,9 @@ export class Renderer extends Canvas {
 				h: { value: 2.0 },
 				i: { value: 8.0 },
 				j: { value: 2.0 }
-			}
+			},
+			colorStop1: { value: [ 1, 0, 0 ] },
+			colorStop2: { value: [ 1, 0, 1 ] },
 		};
 
 		Object.assign(this.config.constants, config.constants || {});
@@ -79,7 +85,9 @@ export class Renderer extends Canvas {
 
 		this.shaderProgram.initUniforms({
 			u_size: { value: super.size },
-			...this.config.constants
+			...this.config.constants,
+			colorStop1: this.config.colorStop1,
+			colorStop2: this.config.colorStop2,
 		});
 	}
 

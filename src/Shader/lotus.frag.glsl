@@ -28,6 +28,9 @@ uniform float h;
 uniform float i;
 uniform float j;
 
+uniform vec3 colorStop1;
+uniform vec3 colorStop2;
+
 float r(float theta) {
 	float numerator = abs(cos(theta * a)) + b - abs(cos(theta * c + PI / d)) * e;
 	float denominator = f + abs(cos(theta * g + PI / h)) * i;
@@ -76,7 +79,7 @@ void main() {
 	) {
 	//	float b = 0.2 + theta / (PI * 2.0);
 		float b = uv.x + uv.y + 0.3;
-		out_color = vec3(1.0, 0.0, b);
+		out_color = mix(colorStop1, colorStop2, b);
 	}
 	
 	gl_FragColor = vec4(out_color, 1.0);
