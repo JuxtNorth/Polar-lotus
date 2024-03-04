@@ -46,26 +46,9 @@ export class EffectComposer {
 			"uTexture", { value: 0 }
 		)
 		
-		// Overlay 
-/*		
-		const p = this.program!;
-		p.bind();
-		p.setUniform("uTexture", { value: 0 })
-		p.setUniform("uBloom", { value: 1 });
-		gl.activeTexture(gl.TEXTURE0);
-		gl.bindTexture(gl.TEXTURE_2D, texture)
-		gl.activeTexture(gl.TEXTURE1);
-		gl.bindTexture(gl.TEXTURE_2D, lastTexture);
-*/
 		const { width, height } = gl.canvas;
 		gl.viewport(0, 0, width, height);
 		gl.clear(gl.COLOR_BUFFER_BIT);
 		gl.drawArrays(gl.TRIANGLES, 0, 6);
-/*		
-		gl.activeTexture(gl.TEXTURE0);
-		gl.bindTexture(gl.TEXTURE_2D, null)
-		gl.activeTexture(gl.TEXTURE1);
-		gl.bindTexture(gl.TEXTURE_2D, null);
-*/
 	}
 }
