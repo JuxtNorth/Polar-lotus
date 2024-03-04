@@ -10,7 +10,11 @@ const canvas = <HTMLCanvasElement>(
 	document.getElementById("renderer")!
 );
 
-const renderer = new Renderer(canvas);
+const constants = {
+	a: { value: 3.0 }
+};
+
+const renderer = new Renderer(canvas, { constants });
 
 const composer = new EffectComposer();
 composer.addPass(new BlurPass());

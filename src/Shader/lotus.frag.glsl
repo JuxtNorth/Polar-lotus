@@ -17,29 +17,20 @@ bool isDivisble(float a, float b) {
 
 const float PI = 3.14159;
 
-float alpha = 2.0;
-float beta = 0.25;
-float gamma = 2.0;
-float zeta = 8.0;
+uniform float a;
+uniform float b;
+uniform float c;
+uniform float d;
+uniform float e;
+uniform float f;
+uniform float g;
+uniform float h;
+uniform float i;
+uniform float j;
 
 float r(float theta) {
-
-	float a = 3.0,
-	b = 0.25,
-	c = 3.0,
-	d = 2.0,
-	e = 2.0;
-
 	float numerator = abs(cos(theta * a)) + b - abs(cos(theta * c + PI / d)) * e;
-
-	float f = 2.0,
-	g = 6.0,
-	h = 2.0,
-	i = 8.0,
-	j = 2.0;
-
 	float denominator = f + abs(cos(theta * g + PI / h)) * i;
-
 	return j + (numerator / denominator);
 }
 

@@ -1,6 +1,7 @@
 import {
 	type GLContext,
 	type GLShaderSrc,
+	type UniformValue,
 	WebGLShaderProgram,
 	WebGLFrameBuffer
 } from '@/WebGL';
@@ -9,15 +10,49 @@ import { type EffectComposer } from '@/PostProcessing';
 import vs from '../Shader/lotus.vert.glsl?raw';
 import fs from '../Shader/lotus.frag.glsl?raw';
 
+type ConstantKeys = 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j';
+
+type Constants = {
+	[key in ConstantKeys]?: UniformValue<number>;
+}
+
+interface RendererConfig {
+	constants: Constants
+}
+
 export class Renderer extends Canvas {
 	private gl?: GLContext;
 	private shaderProgram: WebGLShaderProgram;
 	private fbo: WebGLFrameBuffer;
 	private effectComposer?: EffectComposer;
+	
+	public config: {
+		constants: Required<Constants>
+	};
 
-	constructor(dom: HTMLCanvasElement) {
+	constructor(dom: HTMLCanvasElement, config: Partial<RendererConfig> = {}) {
 		super(dom);
-		dom.id = 'renderer';
+		
+		this.config = {
+			constants: {
+				a: { value: 3.0  },
+				b: { value: 0.25 },
+				c: { value: 3.0 },
+				d: { value: 2.0 },
+				e: { value: 2.0 },
+				f: { value: 2.0 },
+				g: { value: 6.0 },
+				h: { value: 2.0 },
+				i: { value: 8.0 },
+				j: { value: 2.0 }
+			}
+		};
+		
+		Object.assign(
+			this.config.constants,
+			config.constants || {}
+		);
+		
 		this.getGLContext();
 
 		const gl = this.gl as GLContext;
@@ -46,7 +81,8 @@ export class Renderer extends Canvas {
 		});
 
 		this.shaderProgram.initUniforms({
-			u_size: { value: super.size }
+			u_size: { value: super.size },
+			...this.config.constants
 		});
 	}
 
