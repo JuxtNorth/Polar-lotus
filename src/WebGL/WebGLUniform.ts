@@ -1,4 +1,4 @@
-import { GLContext, GLULocation } from '../types';
+import { GLContext, GLULocation } from '@/WebGL';
 
 export class WebGLUniform {
 	private cache: number[] = [];

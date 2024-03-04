@@ -1,6 +1,5 @@
-import type { GLContext } from '../types';
 import EffectPass from './EffectPass';
-import { WebGLShaderProgram, WebGLFrameBuffer } from '@/WebGL';
+import { type GLContext, WebGLShaderProgram, WebGLFrameBuffer } from '@/WebGL';
 import vs from '@/Shader/blur.vert.glsl?raw';
 import fs from '@/Shader/blur.frag.glsl?raw';
 

@@ -1,4 +1,4 @@
-import { GLContext } from '../types';
+import { GLContext } from '@/WebGL';
 import { WebGLDebugger } from './Utils';
 
 export class WebGLFrameBuffer {

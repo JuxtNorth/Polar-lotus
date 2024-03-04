@@ -1,6 +1,6 @@
-import type { GLContext } from "@/WebGL";
 import EffectPass from "../EffectPass";
 import {
+	type GLContext,
 	WebGLShaderProgram,
 	WebGLFrameBuffer
 } from "@/WebGL";

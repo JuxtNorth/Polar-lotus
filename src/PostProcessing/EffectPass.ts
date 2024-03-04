@@ -1,4 +1,4 @@
-import type { GLContext } from '../types';
+import type { GLContext } from '@/WebGL';
 
 abstract class EffectPass {
 	public requiresUpdate = true;

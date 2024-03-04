@@ -17,7 +17,7 @@ export class BloomPrePass extends EffectPass {
 			fs: fs
 		});
 		
-		const thresh = 0.4;
+		const thresh = 0.3;
 
 		let knee = thresh * 0.7 + 0.0001;
 		let curve = [thresh - knee, knee * 2, 0.25 / knee];

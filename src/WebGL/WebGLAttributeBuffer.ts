@@ -1,4 +1,4 @@
-import { GLContext } from '../types';
+import { GLContext } from '@/WebGL';
 
 export class WebGLAttributeBuffer {
 	private buffer: WebGLBuffer;
