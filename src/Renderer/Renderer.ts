@@ -9,6 +9,7 @@ import { Canvas } from './Canvas';
 import { type EffectComposer } from '@/PostProcessing';
 import vs from '../Shader/lotus.vert.glsl?raw';
 import fs from '../Shader/lotus.frag.glsl?raw';
+import type { Color } from "@/types";
 
 type ConstantKeys = 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j';
 
@@ -16,11 +17,11 @@ type Constants = {
 	[key in ConstantKeys]?: UniformValue<number>;
 };
 
-interface RendererConfig {
+export interface RendererConfig {
 	constants: Constants;
 	rotation: UniformValue<number>
-	colourStop1: UniformValue<[number, number, number]>;
-	colourStop2: UniformValue<[number, number, number]>;
+	colorStop1: UniformValue<Color>;
+	colorStop2: UniformValue<Color>;
 }
 
 export class Renderer extends Canvas {
@@ -32,8 +33,8 @@ export class Renderer extends Canvas {
 	public config: {
 		constants: Required<Constants>;
 		rotation: UniformValue<number>
-		colorStop1: UniformValue<[number, number, number]>;
-		colorStop2: UniformValue<[number, number, number]>;
+		colorStop1: UniformValue<Color>;
+		colorStop2: UniformValue<Color>;
 	};
 
 	constructor(dom: HTMLCanvasElement, config: Partial<RendererConfig> = {}) {
@@ -52,7 +53,7 @@ export class Renderer extends Canvas {
 				i: { value: 8.0 },
 				j: { value: 2.0 },
 			},
-			rotation: { value: 0.3 },
+			rotation: { value: 0.01 },
 			colorStop1: { value: [ 1, 0, 0 ] },
 			colorStop2: { value: [ 1, 0, 1 ] },
 		};
