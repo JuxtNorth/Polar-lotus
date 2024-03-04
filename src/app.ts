@@ -42,7 +42,7 @@ function setupGUI () {
 		numerator.add(constants[key as keyof typeof constants], "value", -6, 6).name(key);
 	});
 	
-	const denominator = folder.addFolder("numerator");
+	const denominator = folder.addFolder("denominator");
 		["f", "g", "h", "i", "j"].forEach(key => {
 		denominator.add(constants[key as keyof typeof constants], "value", -6, 6).name(key);
 	});
