@@ -24,11 +24,13 @@ animate();
 setupGUI();
 
 function setupGUI() {
-	const { constants } = renderer.config;
 	const gui = new GUI();
-	const folder = gui.addFolder('contants');
-	const numerator = folder.addFolder('numerator');
+	gui.open(false);
 
+	const { constants } = renderer.config;
+	const folder = gui.addFolder('contants');
+
+	const numerator = folder.addFolder('numerator');
 	['a', 'b', 'c', 'd', 'e'].forEach((key) => {
 		numerator
 			.add(constants[key as keyof typeof constants], 'value', -6, 6)
