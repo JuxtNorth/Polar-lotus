@@ -9,7 +9,7 @@ import { Canvas } from './Canvas';
 import { type EffectComposer } from '@/PostProcessing';
 import vs from '../Shader/lotus.vert.glsl?raw';
 import fs from '../Shader/lotus.frag.glsl?raw';
-import type { Color } from "@/types";
+import type { Color } from '@/types';
 
 type ConstantKeys = 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j';
 
@@ -19,7 +19,7 @@ type Constants = {
 
 export interface RendererConfig {
 	constants: Constants;
-	rotation: UniformValue<number>
+	rotation: UniformValue<number>;
 	colorStop1: UniformValue<Color>;
 	colorStop2: UniformValue<Color>;
 }
@@ -32,7 +32,7 @@ export class Renderer extends Canvas {
 
 	public config: {
 		constants: Required<Constants>;
-		rotation: UniformValue<number>
+		rotation: UniformValue<number>;
 		colorStop1: UniformValue<Color>;
 		colorStop2: UniformValue<Color>;
 	};
@@ -51,11 +51,11 @@ export class Renderer extends Canvas {
 				g: { value: 6.0 },
 				h: { value: 2.0 },
 				i: { value: 8.0 },
-				j: { value: 2.0 },
+				j: { value: 2.0 }
 			},
 			rotation: { value: 0.01 },
-			colorStop1: { value: [ 1, 0, 0 ] },
-			colorStop2: { value: [ 1, 0, 1 ] },
+			colorStop1: { value: [1, 0, 0] },
+			colorStop2: { value: [1, 0, 1] }
 		};
 
 		Object.assign(this.config.constants, config.constants || {});
@@ -92,7 +92,7 @@ export class Renderer extends Canvas {
 			...this.config.constants,
 			rotation: this.config.rotation,
 			colorStop1: this.config.colorStop1,
-			colorStop2: this.config.colorStop2,
+			colorStop2: this.config.colorStop2
 		});
 	}
 

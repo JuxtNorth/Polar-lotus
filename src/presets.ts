@@ -1,7 +1,7 @@
-import type { Color } from "@/types";
-import type { RendererConfig } from "@/Renderer";
+import type { Color } from '@/types';
+import type { RendererConfig } from '@/Renderer';
 
-const presets: Omit<RendererConfig, "rotation">[] = [
+const presets: Omit<RendererConfig, 'rotation'>[] = [
 	{
 		colorStop1: { value: [1, 0, 0] as Color },
 		colorStop2: { value: [1, 0, 1] as Color },
