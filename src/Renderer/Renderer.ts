@@ -11,14 +11,7 @@ import vs from '../Shader/lotus.vert.glsl?raw';
 import fs from '../Shader/lotus.frag.glsl?raw';
 import type { Color } from '@/types';
 
-type ConstantKeys = 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j';
-
-type Constants = {
-	[key in ConstantKeys]?: UniformValue<number>;
-};
-
 export interface RendererConfig {
-	constants: Constants;
 	rotation: UniformValue<number>;
 	colorStop1: UniformValue<Color>;
 	colorStop2: UniformValue<Color>;
@@ -31,7 +24,6 @@ export class Renderer extends Canvas {
 	private effectComposer?: EffectComposer;
 
 	public config: {
-		constants: Required<Constants>;
 		rotation: UniformValue<number>;
 		colorStop1: UniformValue<Color>;
 		colorStop2: UniformValue<Color>;
@@ -41,25 +33,13 @@ export class Renderer extends Canvas {
 		super(dom);
 
 		this.config = {
-			constants: {
-				a: { value: 3.0 },
-				b: { value: 0.25 },
-				c: { value: 3.0 },
-				d: { value: 2.0 },
-				e: { value: 2.0 },
-				f: { value: 2.0 },
-				g: { value: 6.0 },
-				h: { value: 2.0 },
-				i: { value: 8.0 },
-				j: { value: 2.0 }
-			},
 			rotation: { value: 0.01 },
 			colorStop1: { value: [1, 0, 0] },
 			colorStop2: { value: [1, 0, 1] }
 		};
 
-		Object.assign(this.config.constants, config.constants || {});
-
+		Object.assign(this.config, config);
+		
 		this.getGLContext();
 
 		const gl = this.gl as GLContext;
@@ -89,7 +69,6 @@ export class Renderer extends Canvas {
 
 		this.shaderProgram.initUniforms({
 			u_size: { value: super.size },
-			...this.config.constants,
 			rotation: this.config.rotation,
 			colorStop1: this.config.colorStop1,
 			colorStop2: this.config.colorStop2

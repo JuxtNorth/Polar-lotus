@@ -17,26 +17,15 @@ bool isDivisble(float a, float b) {
 
 const float PI = 3.14159;
 
-uniform float a;
-uniform float b;
-uniform float c;
-uniform float d;
-uniform float e;
-uniform float f;
-uniform float g;
-uniform float h;
-uniform float i;
-uniform float j;
-
 uniform vec3 colorStop1;
 uniform vec3 colorStop2;
 
 uniform float rotation;
 
 float r(float theta) {
-	float numerator = abs(cos(theta * a)) + b - abs(cos(theta * c + PI / d)) * e;
-	float denominator = f + abs(cos(theta * g + PI / h)) * i;
-	return j + (numerator / denominator);
+	float numerator = abs(cos(theta * 3.0)) + 0.25 - abs(cos(theta * 3.0 + PI / 2.0)) * 2.0;
+	float denominator = 2.0 + abs(cos(theta * 6.0 + PI / 2.0)) * 8.0;
+	return 2.0 + (numerator / denominator);
 }
 
 void main() {
