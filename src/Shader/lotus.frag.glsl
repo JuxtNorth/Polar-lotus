@@ -22,10 +22,70 @@ uniform vec3 colorStop2;
 
 uniform float rotation;
 
-float r(float theta) {
-	float numerator = abs(cos(theta * 3.0)) + 0.25 - abs(cos(theta * 3.0 + PI / 2.0)) * 2.0;
-	float denominator = 2.0 + abs(cos(theta * 6.0 + PI / 2.0)) * 8.0;
-	return 2.0 + (numerator / denominator);
+float r(float theta, float a, float b, float c) {
+	float numerator = abs(cos(theta * a)) + 0.25 - abs(cos(theta * a + PI / 2.0)) * 2.0;
+	float denominator = 2.0 + abs(cos(theta * b + PI / 2.0)) * 8.0;
+	return c + (numerator / denominator);
+}
+
+bool approxEquals(vec2 a, vec2 b, float espilon) {
+	return (
+		a.x < b.x + espilon &&
+		a.x > b.x - espilon &&
+		a.y < b.y + espilon &&
+		a.y > b.y - espilon
+	);
+}
+
+float lotus(vec2 uv, float theta) {
+	float r1 = r(theta, 3.0, 6.0, 2.5);
+	float r2 = r(theta, 6.0, 12.0, 4.0);
+	float r3 = r(theta, 3.0, 6.0, 1.0);
+	
+	float radius = 0.1;
+	float cosTheta = cos(theta);
+	float sinTheta = sin(theta);
+	
+	vec2 r1Coord = vec2(
+		r1 * radius * cosTheta,
+		r1 * radius * sinTheta
+	);
+	vec2 r2Coord = vec2(
+		r2 * radius * cosTheta,
+		r2 * radius * sinTheta
+	);
+	vec2 r3Coord = vec2(
+		r3 * radius * cosTheta,
+		r3 * radius * sinTheta
+	);
+	
+	float t = -1.0;
+	float espilon = 0.01;
+	
+	if (
+		approxEquals(uv, r1Coord, espilon) ||
+		approxEquals(uv, r2Coord, espilon) ||
+		approxEquals(uv, r3Coord, espilon)
+	) {
+		//	float b = theta / (PI * 2.0);
+		t = uv.x + uv.y + 0.4;
+	}
+
+	return t;
+}
+
+
+vec3 getGridColor(vec2 coord, vec2 offset, float size) {
+	vec3 out_color = vec3(0.0);
+	vec2 gap = vec2(size);
+	float x = mod(coord.x + offset.x, gap.x);
+	float y = mod(coord.y + offset.y, gap.y);
+
+	if (int(x) == 0 || int(y) == 0) {
+		out_color += 0.25;
+	}
+
+	return out_color;
 }
 
 void main() {
@@ -35,43 +95,20 @@ void main() {
 	vec2 uv = pixel - u_size * 0.5;
 	uv /= u_size.x;
 
-	// draw a grid
-	vec2 gap = vec2(32.0);
 	vec2 grid_offset = vec2(-8.0, 8.0);
-	float x = mod(pixel.x + grid_offset.x, gap.x);
-	float y = mod(pixel.y + grid_offset.y, gap.y);
-
-	if (int(x) == 0 || int(y) == 0) {
-		out_color += 0.25;
-	}
+	out_color += getGridColor(pixel, grid_offset, 32.0);
 
 	vec2 mid = vec2(0.0);
 
 	vec2 delta = mid - uv;
 	float dist = length(delta);
 	float theta = PI + atan(delta.y, delta.x);
-
-	float r1 = r(rotation + theta);
-
-	float radius = 0.15;
-
-	float rx = r1 * radius * cos(theta);
-	float ry = r1 * radius * sin(theta);
-
-	float espilon = 0.01;
-
-	float s = smoothstep(espilon, -espilon, length(uv - vec2(rx, ry)));
-
-	if (
-		uv.x < rx + espilon &&
-		uv.x > rx - espilon &&
-		uv.y < ry + espilon &&
-		uv.y > ry - espilon
-	) {
-	//	float b = 0.2 + theta / (PI * 2.0);
-		float b = uv.x + uv.y + 0.3;
-		out_color = mix(colorStop1, colorStop2, b);
-	}
 	
+	float t = lotus(uv, rotation + theta);
+
+	if (t > -1.0) {
+		out_color = mix(colorStop1, colorStop2, t);
+	}
+
 	gl_FragColor = vec4(out_color, 1.0);
 }
