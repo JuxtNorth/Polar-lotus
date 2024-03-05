@@ -1,7 +1,7 @@
 export class Canvas {
 	dom: HTMLCanvasElement;
 	rect: DOMRect;
-	dpr: number = 1;
+	dpr: number = 2;
 
 	constructor(canvas: HTMLCanvasElement) {
 		this.dom = canvas;
