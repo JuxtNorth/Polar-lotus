@@ -16,7 +16,7 @@ export class BloomFinalPass extends EffectPass {
 		});
 		this.program.initUniforms({
 			texelSize: { value: this.fbo.texelSize },
-			intensity: { value: 1.0 }
+			intensity: { value: 0.8 }
 		});
 	}
 
