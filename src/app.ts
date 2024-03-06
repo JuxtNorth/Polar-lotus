@@ -1,8 +1,8 @@
 import './style.css';
 import { Renderer } from '@/Renderer';
 import { EffectComposer, BlurPass, BloomPass } from '@/PostProcessing';
-import { Color } from "@/Math";
-import GUI from "lil-gui";
+import { Color } from '@/Math';
+import GUI from 'lil-gui';
 
 const canvas = <HTMLCanvasElement>document.getElementById('renderer')!;
 
@@ -29,7 +29,7 @@ requestAnimationFrame(animate);
 
 const config = {
 	hue: 0,
-	hueDifference: 15,
+	hueDifference: 15
 };
 
 setupGUI();
@@ -48,7 +48,9 @@ function updateRenderer() {
 
 function setupGUI() {
 	const gui = new GUI();
-	const folder = gui.addFolder("Color");
-	folder.add(config, "hue", 0, 360, 1).onChange(() => updateRenderer());
-	folder.add(config, "hueDifference", 0, 90, 1).onChange(() => updateRenderer());
+	const folder = gui.addFolder('Color');
+	folder.add(config, 'hue', 0, 360, 1).onChange(() => updateRenderer());
+	folder
+		.add(config, 'hueDifference', 0, 90, 1)
+		.onChange(() => updateRenderer());
 }

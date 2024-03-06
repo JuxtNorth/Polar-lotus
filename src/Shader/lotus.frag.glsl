@@ -36,7 +36,7 @@ float rotation2 = rotation * 1.5;
 float lotus(vec2 uv, float theta) {
 	float r1 = r(rotation0 + theta, 3.0, 6.0, 2.5);
 	float r2 = r(rotation1 + theta, 6.0, 12.0, 4.0);
-	float r3 = r( rotation2 + theta, 3.0, 6.0, 1.0);
+	float r3 = r(rotation2 + theta, 3.0, 6.0, 1.0);
 
 	float radius = 0.1;
 	float cosTheta = cos(theta);

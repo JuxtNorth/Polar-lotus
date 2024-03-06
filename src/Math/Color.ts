@@ -1,4 +1,4 @@
-import type { Color as ColorRGB } from "@/types";
+import type { Color as ColorRGB } from '@/types';
 
 export class Color {
 	public r: number;
@@ -13,7 +13,8 @@ export class Color {
 
 	setHSL(h: number, s = 0.8, l = 0.5): this {
 		h = (h % 360) / 360;
-		if (s == 0) {	// achromatic
+		if (s == 0) {
+			// achromatic
 			this.r = 1;
 			this.g = 1;
 			this.b = 1;
@@ -27,7 +28,7 @@ export class Color {
 		}
 		return this;
 	}
-	
+
 	private hue2rgb(p: number, q: number, t: number): number {
 		if (t < 0) t += 1;
 		if (t > 1) t -= 1;

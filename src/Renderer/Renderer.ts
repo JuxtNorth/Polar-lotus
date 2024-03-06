@@ -39,7 +39,7 @@ export class Renderer extends Canvas {
 		};
 
 		Object.assign(this.config, config);
-		
+
 		this.getGLContext();
 
 		const gl = this.gl as GLContext;

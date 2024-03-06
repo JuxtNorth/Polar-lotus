@@ -37,7 +37,7 @@ This application is built using Vite. It leverages TypeScript for type safety an
 The bloom shaders have been referenced from PavelDoGreat's impressive [fluid simulation](https://github.com/PavelDoGreat/WebGL-Fluid-Simulation)
 The lotus equation has been referenced from [podcollective](https://podcollective.com/polar-graph-art-quickgraph-a/lotus-equasion/)
 
-## TODO 
+## TODO
 
 1. Refactoring the WebGL wrapper classes.
 2. Improving visuals.
