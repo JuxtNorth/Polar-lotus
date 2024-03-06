@@ -10,7 +10,9 @@ const renderer = new Renderer(canvas);
 
 const composer = new EffectComposer();
 composer.addPass(new BlurPass());
-composer.addPass(new BloomPass());
+
+const bloomPass = new BloomPass();
+composer.addPass(bloomPass);
 
 renderer.setEffectComposer(composer);
 renderer.render();
@@ -53,4 +55,7 @@ function setupGUI() {
 	folder
 		.add(config, 'hueDifference', 0, 90, 1)
 		.onChange(() => updateRenderer());
+
+	const bloomFolder = gui.addFolder('bloom');
+	bloomFolder.add(bloomPass, 'isEnabled');
 }
