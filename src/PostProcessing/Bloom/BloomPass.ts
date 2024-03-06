@@ -14,7 +14,7 @@ type BloomPasses = [BloomPrePass, BloomBlurPass, BloomFinalPass];
 export class BloomPass extends EffectPass {
 	private fbo?: WebGLFrameBuffer;
 	private program?: WebGLShaderProgram;
-	private passes?: BloomPasses;
+	private passes: BloomPasses;
 
 	public _intensity = 0.8;
 	public _threshold = 0.3;
@@ -50,17 +50,18 @@ export class BloomPass extends EffectPass {
 	}
 
 	setup(gl: GLContext) {
-		this.initFrameBuffer(gl);
-		this.passes!.forEach((pass) => pass.setup(gl));
+		this.passes.forEach((pass) => pass.setup(gl));
 		this.program = new WebGLShaderProgram(gl, {
 			vs: vs,
 			fs: fs
 		});
 		this.program.initUniforms({});
+		this.initFrameBuffer(gl);
 	}
 
 	initFrameBuffer(gl: GLContext) {
 		this.fbo = new WebGLFrameBuffer(gl);
+		this.passes.forEach((pass) => pass.initFrameBuffer(gl));
 	}
 
 	render(gl: GLContext, texture: WebGLTexture): WebGLTexture {

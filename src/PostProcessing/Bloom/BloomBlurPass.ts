@@ -27,23 +27,20 @@ export class BloomBlurPass extends EffectPass {
 	private program?: WebGLShaderProgram;
 
 	setup(gl: GLContext) {
-		this.initFrameBuffer(gl);
 		this.program = new WebGLShaderProgram(gl, {
 			vs: vs,
 			fs: fs
 		});
-
-		const { sizeX, sizeY } = this.fbos[0];
-
-		this.program.initUniforms({
-			texelSize: { value: [sizeX, sizeY] }
-		});
+		this.program.initUniforms({});
+		this.initFrameBuffer(gl);
 	}
 
 	initFrameBuffer(gl: GLContext) {
 		const samples = 16;
 		const { fbos } = this;
 		const res = getResolution(gl, 256);
+
+		fbos.length = 0;
 
 		const fbo = new WebGLFrameBuffer(gl, res);
 		fbos.push(fbo);

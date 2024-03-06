@@ -28,6 +28,10 @@ export class EffectComposer {
 		this.passes.forEach((pass) => pass.setup(gl));
 	}
 
+	resizeFBOs(gl: GLContext) {
+		this.passes.forEach((pass) => pass.initFrameBuffer(gl));
+	}
+
 	render(gl: GLContext, texture: WebGLTexture) {
 		if (!this.program) {
 			throw new Error('Effect Composer not set up');

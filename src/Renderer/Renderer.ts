@@ -51,11 +51,23 @@ export class Renderer extends Canvas {
 
 		this.shaderProgram = new WebGLShaderProgram(gl, shaders);
 
-		this.fbo = new WebGLFrameBuffer(gl);
-
-		this.fbo.unbind(gl);
+		this.initFrameBuffer(gl);
 
 		this.init();
+
+		super.setupResizeObserver(() => {
+			this.shaderProgram.bind();
+			this.shaderProgram.setUniform('uSize', { value: super.size });
+			this.shaderProgram.unbind();
+			if (this.effectComposer) {
+				this.initFrameBuffer(gl);
+				this.effectComposer.resizeFBOs(gl);
+			}
+		});
+	}
+
+	initFrameBuffer(gl: GLContext) {
+		this.fbo = new WebGLFrameBuffer(gl);
 	}
 
 	init() {
