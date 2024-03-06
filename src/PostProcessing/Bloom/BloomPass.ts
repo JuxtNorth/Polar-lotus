@@ -27,11 +27,12 @@ export class BloomPass extends EffectPass {
 		this.passes = [
 			new BloomPrePass(this.threshold),
 			new BloomBlurPass(),
-			new BloomFinalPass()
+			new BloomFinalPass(this.intensity)
 		] as BloomPasses;
 	}
 
 	set intensity(value: number) {
+		this.passes![2].intensity = value;
 		this._intensity = value;
 	}
 

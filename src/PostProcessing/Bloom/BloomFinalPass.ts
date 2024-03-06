@@ -1,11 +1,36 @@
 import EffectPass from '../EffectPass';
-import { type GLContext, WebGLShaderProgram, WebGLFrameBuffer } from '@/WebGL';
+import {
+	type GLContext,
+	WebGLShaderProgram,
+	WebGLFrameBuffer,
+	UniformValue
+} from '@/WebGL';
 import vs from '@/Shader/base.vert.glsl?raw';
 import fs from './Shader/final.frag.glsl?raw';
 
 export class BloomFinalPass extends EffectPass {
 	private fbo?: WebGLFrameBuffer;
 	private program?: WebGLShaderProgram;
+	public uniforms: {
+		texelSize: UniformValue<[number, number]>;
+		intensity: UniformValue<number>;
+	};
+
+	constructor(intensity: number) {
+		super();
+		this.uniforms = {
+			texelSize: { value: [0.0002, 0.0002] },
+			intensity: { value: intensity }
+		};
+	}
+
+	set intensity(value: number) {
+		this.uniforms.intensity.value = value;
+	}
+
+	get intensity() {
+		return this.uniforms.intensity.value;
+	}
 
 	setup(gl: GLContext) {
 		this.fbo = new WebGLFrameBuffer(gl);
@@ -14,10 +39,12 @@ export class BloomFinalPass extends EffectPass {
 			vs: vs,
 			fs: fs
 		});
-		this.program.initUniforms({
-			texelSize: { value: this.fbo.texelSize },
-			intensity: { value: 0.8 }
+
+		Object.assign(this.uniforms, {
+			texelSize: { value: this.fbo.texelSize }
 		});
+
+		this.program.initUniforms(this.uniforms);
 	}
 
 	render(gl: GLContext, texture: WebGLTexture): WebGLTexture {
