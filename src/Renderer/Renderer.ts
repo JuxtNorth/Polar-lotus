@@ -20,7 +20,7 @@ export interface RendererConfig {
 export class Renderer extends Canvas {
 	private gl?: GLContext;
 	private shaderProgram: WebGLShaderProgram;
-	private fbo: WebGLFrameBuffer;
+	private fbo?: WebGLFrameBuffer;
 	private effectComposer?: EffectComposer;
 
 	public config: {
@@ -100,12 +100,12 @@ export class Renderer extends Canvas {
 
 		if (this.effectComposer) {
 			// draw to an fbo instead of the backbuffer
-			this.fbo.bind(gl);
+			this.fbo!.bind(gl);
 			gl.clear(gl.COLOR_BUFFER_BIT);
 			gl.drawArrays(gl.TRIANGLES, 0, 6);
 
 			this.shaderProgram.unbind();
-			this.effectComposer.render(gl, this.fbo.texture);
+			this.effectComposer.render(gl, this.fbo!.texture);
 		} else {
 			const { width, height } = gl.canvas;
 			gl.viewport(0, 0, width, height);
