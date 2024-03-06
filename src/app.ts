@@ -50,6 +50,7 @@ function updateRenderer() {
 
 function setupGUI() {
 	const gui = new GUI();
+	gui.open(false);
 	const folder = gui.addFolder('Color');
 	folder.add(config, 'hue', 0, 360, 1).onChange(() => updateRenderer());
 	folder
