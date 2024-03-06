@@ -109,10 +109,10 @@ void main() {
 	vec2 uv = pixel - u_size * 0.5;
 	uv /= u_size.x;
 
-	vec2 grid_offset = vec2(-8.0, 8.0);
+	vec2 grid_offset = -(u_size / 2.0);
 	out_color += getGridColor(pixel, grid_offset, 32.0, 128.0);
 
-	vec2 mid = vec2(0.0);
+	vec2 mid = vec2(0.0, 0.0);
 
 	vec2 delta = mid - uv;
 	float dist = length(delta);
