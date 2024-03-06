@@ -30,14 +30,16 @@ function animate(t: number) {
 requestAnimationFrame(animate);
 
 const config = {
-	hue: 0,
-	hueDifference: 15
+	hue: 170,
+	hueDifference: 60
 };
 
 setupGUI();
 
-const stop1 = new Color(1, 0, 0);
-const stop2 = new Color(1, 0, 1);
+const stop1 = new Color().setHSL(config.hue);
+const stop2 = new Color().setHSL(config.hue + 60);
+
+updateRenderer();
 
 function updateRenderer() {
 	const { hue, hueDifference } = config;
