@@ -15,6 +15,18 @@ composer.addPass(new BloomPass());
 renderer.setEffectComposer(composer);
 renderer.render();
 
+let lastTimestamp = 0;
+
+function animate(t: number) {
+	requestAnimationFrame(animate);
+	const dt = t - lastTimestamp;
+	lastTimestamp = t;
+	renderer.config.rotation.value += 0.0002 * dt;
+	renderer.render();
+}
+
+requestAnimationFrame(animate);
+
 const config = {
 	hue: 0,
 	hueDifference: 15,
