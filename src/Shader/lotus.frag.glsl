@@ -1,6 +1,6 @@
 precision highp float;
 
-uniform vec2 u_size;
+uniform vec2 uSize;
 
 bool isDivisble(float a, float b) {
 	float q = b / a;
@@ -72,7 +72,7 @@ float lotus(vec2 uv, float theta) {
 
 
 vec3 getGridColor(vec2 coord, vec2 offset, float size1, float size2) {
-	vec3 out_color = vec3(0.0);
+	vec3 outColor = vec3(0.0);
 
 	coord += offset;
 
@@ -85,24 +85,24 @@ vec3 getGridColor(vec2 coord, vec2 offset, float size1, float size2) {
 	float y2 = mod(coord.y, gap2.y);
 
 	if (int(x1) == 0 || int(y1) == 0) {
-		out_color += 0.25;
+		outColor += 0.25;
 	}
 	if (int(x2) == 0 || int(y2) == 0) {
-		out_color += 0.25;
+		outColor += 0.25;
 	}
 
-	return out_color;
+	return outColor;
 }
 
 void main() {
-	vec3 out_color = vec3(0.0);
+	vec3 outColor = vec3(0.0);
 
 	vec2 pixel = vec2(gl_FragCoord.xy);
-	vec2 uv = pixel - u_size * 0.5;
-	uv /= u_size.x;
+	vec2 uv = pixel - uSize * 0.5;
+	uv /= uSize.x;
 
-	vec2 grid_offset = -(u_size / 2.0);
-	out_color += getGridColor(pixel, grid_offset, 32.0, 128.0);
+	vec2 gridOffset = -(uSize / 2.0);
+	outColor += getGridColor(pixel, gridOffset, 32.0, 128.0);
 
 	vec2 delta = -uv;
 	float dist = length(delta);
@@ -111,8 +111,8 @@ void main() {
 	float t = lotus(uv, theta);
 
 	if (t > -1.0) {
-		out_color = mix(colorStop1, colorStop2, t);
+		outColor = mix(colorStop1, colorStop2, t);
 	}
 
-	gl_FragColor = vec4(out_color, 1.0);
+	gl_FragColor = vec4(outColor, 1.0);
 }

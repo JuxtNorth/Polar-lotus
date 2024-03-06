@@ -68,7 +68,7 @@ export class Renderer extends Canvas {
 		});
 
 		this.shaderProgram.initUniforms({
-			u_size: { value: super.size },
+			uSize: { value: super.size },
 			rotation: this.config.rotation,
 			colorStop1: this.config.colorStop1,
 			colorStop2: this.config.colorStop2
