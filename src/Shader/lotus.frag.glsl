@@ -2,10 +2,6 @@ precision highp float;
 
 uniform vec2 u_size;
 
-float get_angle(vec2 a, vec2 b) {
-	return dot(a, b) / (length(a) * length(b));
-}
-
 bool isDivisble(float a, float b) {
 	float q = b / a;
 	return floor(a) - b == 0.0;
