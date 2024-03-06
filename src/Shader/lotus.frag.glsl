@@ -2,10 +2,6 @@ precision highp float;
 
 uniform vec2 u_size;
 
-vec2 polar_to_cartesian (float theta) {
-	return vec2(cos(theta), sin(theta));
-}
-
 float get_angle(vec2 a, vec2 b) {
 	return dot(a, b) / (length(a) * length(b));
 }
