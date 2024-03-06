@@ -8,15 +8,19 @@ export class BlurPass extends EffectPass {
 	private program?: WebGLShaderProgram;
 
 	setup(gl: GLContext) {
-		this.fbo = new WebGLFrameBuffer(gl);
+		this.initFrameBuffer(gl);
 		this.requiresUpdate = false;
 		this.program = new WebGLShaderProgram(gl, {
 			vs: vs,
 			fs: fs
 		});
 		this.program.initUniforms({
-			texelSize: { value: this.fbo.texelSize }
+			texelSize: { value: this.fbo!.texelSize }
 		});
+	}
+
+	initFrameBuffer(gl: GLContext) {
+		this.fbo = new WebGLFrameBuffer(gl);
 	}
 
 	render(gl: GLContext, texture: WebGLTexture): WebGLTexture {

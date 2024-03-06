@@ -33,7 +33,7 @@ export class BloomFinalPass extends EffectPass {
 	}
 
 	setup(gl: GLContext) {
-		this.fbo = new WebGLFrameBuffer(gl);
+		this.initFrameBuffer(gl);
 		this.requiresUpdate = false;
 		this.program = new WebGLShaderProgram(gl, {
 			vs: vs,
@@ -41,10 +41,14 @@ export class BloomFinalPass extends EffectPass {
 		});
 
 		Object.assign(this.uniforms, {
-			texelSize: { value: this.fbo.texelSize }
+			texelSize: { value: this.fbo!.texelSize }
 		});
 
 		this.program.initUniforms(this.uniforms);
+	}
+
+	initFrameBuffer(gl: GLContext) {
+		this.fbo = new WebGLFrameBuffer(gl);
 	}
 
 	render(gl: GLContext, texture: WebGLTexture): WebGLTexture {

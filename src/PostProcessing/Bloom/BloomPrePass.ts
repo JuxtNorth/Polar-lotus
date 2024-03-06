@@ -42,19 +42,22 @@ export class BloomPrePass extends EffectPass {
 	}
 
 	setup(gl: GLContext) {
-		this.fbo = new WebGLFrameBuffer(gl);
-		this.requiresUpdate = false;
+		this.initFrameBuffer(gl);
 		this.program = new WebGLShaderProgram(gl, {
 			vs: vs,
 			fs: fs
 		});
 
 		Object.assign(this.uniforms, {
-			texelSize: { value: this.fbo.texelSize },
+			texelSize: { value: this.fbo!.texelSize },
 			curve: { value: this.curve }
 		});
 
 		this.program.initUniforms(this.uniforms);
+	}
+
+	initFrameBuffer(gl: GLContext) {
+		this.fbo = new WebGLFrameBuffer(gl);
 	}
 
 	render(gl: GLContext, texture: WebGLTexture): WebGLTexture {

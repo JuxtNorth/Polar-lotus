@@ -27,9 +27,7 @@ export class BloomBlurPass extends EffectPass {
 	private program?: WebGLShaderProgram;
 
 	setup(gl: GLContext) {
-		this.requiresUpdate = false;
-
-		this.initFrameBuffers(gl);
+		this.initFrameBuffer(gl);
 		this.program = new WebGLShaderProgram(gl, {
 			vs: vs,
 			fs: fs
@@ -42,7 +40,7 @@ export class BloomBlurPass extends EffectPass {
 		});
 	}
 
-	private initFrameBuffers(gl: GLContext) {
+	initFrameBuffer(gl: GLContext) {
 		const samples = 16;
 		const { fbos } = this;
 		const res = getResolution(gl, 256);

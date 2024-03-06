@@ -50,12 +50,16 @@ export class BloomPass extends EffectPass {
 	}
 
 	setup(gl: GLContext) {
+		this.initFrameBuffer(gl);
 		this.passes!.forEach((pass) => pass.setup(gl));
 		this.program = new WebGLShaderProgram(gl, {
 			vs: vs,
 			fs: fs
 		});
 		this.program.initUniforms({});
+	}
+
+	initFrameBuffer(gl: GLContext) {
 		this.fbo = new WebGLFrameBuffer(gl);
 	}
 

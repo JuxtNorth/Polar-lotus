@@ -14,6 +14,7 @@ abstract class EffectPass {
 		return this;
 	}
 
+	abstract initFrameBuffer(gl: GLContext): void;
 	abstract setup(gl: GLContext): void;
 	abstract render(gl: GLContext, texture?: WebGLTexture): WebGLTexture;
 }
