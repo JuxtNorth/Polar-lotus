@@ -35,7 +35,9 @@ export class EffectComposer {
 
 		let lastTexture = texture;
 		this.passes.forEach((pass) => {
-			lastTexture = pass.render(gl, lastTexture);
+			if (pass.isEnabled) {
+				lastTexture = pass.render(gl, lastTexture);
+			}
 		});
 
 		this.program.bind();
