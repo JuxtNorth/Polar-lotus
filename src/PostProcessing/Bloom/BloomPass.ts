@@ -2,21 +2,54 @@ import EffectPass from '../EffectPass';
 import { type GLContext, WebGLShaderProgram, WebGLFrameBuffer } from '@/WebGL';
 import vs from '@/Shader/base.vert.glsl?raw';
 import fs from './Shader/overlay.frag.glsl?raw';
-
 import { BloomPrePass, BloomBlurPass, BloomFinalPass } from '@/PostProcessing';
+
+export interface BloomConfig {
+	intensity?: number;
+	threshold?: number;
+}
+
+type BloomPasses = [BloomPrePass, BloomBlurPass, BloomFinalPass];
 
 export class BloomPass extends EffectPass {
 	private fbo?: WebGLFrameBuffer;
 	private program?: WebGLShaderProgram;
-	private passes: EffectPass[] = [];
+	private passes?: BloomPasses;
 
-	setup(gl: GLContext) {
+	public _intensity = 0.8;
+	public _threshold = 0.3;
+
+	constructor(config: BloomConfig = {}) {
+		super();
+		const { intensity, threshold } = config;
+		if (intensity) this.intensity = intensity;
+		if (threshold) this.threshold = threshold;
 		this.passes = [
-			new BloomPrePass(),
+			new BloomPrePass(this.threshold),
 			new BloomBlurPass(),
 			new BloomFinalPass()
-		];
-		this.passes.forEach((pass) => pass.setup(gl));
+		] as BloomPasses;
+	}
+
+	set intensity(value: number) {
+		this._intensity = value;
+	}
+
+	get intensity() {
+		return this._intensity;
+	}
+
+	set threshold(value: number) {
+		this.passes![0].threshold = value;
+		this._threshold = value;
+	}
+
+	get threshold() {
+		return this._threshold;
+	}
+
+	setup(gl: GLContext) {
+		this.passes!.forEach((pass) => pass.setup(gl));
 		this.program = new WebGLShaderProgram(gl, {
 			vs: vs,
 			fs: fs
@@ -34,9 +67,9 @@ export class BloomPass extends EffectPass {
 
 		let tex = texture;
 
-		tex = passes[0].render(gl, tex);
-		tex = passes[1].render(gl, tex);
-		tex = passes[2].render(gl, tex);
+		tex = passes![0].render(gl, tex);
+		tex = passes![1].render(gl, tex);
+		tex = passes![2].render(gl, tex);
 
 		// Overlay
 		fbo.bind(gl);

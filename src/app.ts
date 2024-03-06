@@ -58,4 +58,5 @@ function setupGUI() {
 
 	const bloomFolder = gui.addFolder('bloom');
 	bloomFolder.add(bloomPass, 'isEnabled');
+	bloomFolder.add(bloomPass, 'threshold', 0, 1);
 }

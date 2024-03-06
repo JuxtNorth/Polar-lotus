@@ -1,12 +1,45 @@
 import type { GLContext } from '@/WebGL';
 import EffectPass from '../EffectPass';
-import { WebGLShaderProgram, WebGLFrameBuffer } from '@/WebGL';
+import { WebGLShaderProgram, WebGLFrameBuffer, UniformValue } from '@/WebGL';
 import vs from '@/Shader/base.vert.glsl?raw';
 import fs from './Shader/pre.frag.glsl?raw';
+
+type Curve = [number, number, number];
 
 export class BloomPrePass extends EffectPass {
 	private fbo?: WebGLFrameBuffer;
 	private program?: WebGLShaderProgram;
+	public uniforms: {
+		texelSize: UniformValue<[number, number]>;
+		threshold: UniformValue<number>;
+		curve: UniformValue<Curve>;
+	};
+
+	constructor(threshold: number) {
+		super();
+		this.uniforms = {
+			texelSize: { value: [0.0002, 0.0002] },
+			threshold: { value: threshold },
+			curve: { value: [0, 0, 0] }
+		};
+	}
+
+	set threshold(value: number) {
+		this.uniforms.threshold.value = value;
+	}
+
+	get threshold() {
+		return this.uniforms.threshold.value;
+	}
+
+	get curve(): Curve {
+		const { value } = this.uniforms.threshold;
+		const knee = value * 0.7 + 0.0001;
+		const x = value - knee;
+		const y = knee * 2;
+		const z = 0.25 / knee;
+		return [x, y, z];
+	}
 
 	setup(gl: GLContext) {
 		this.fbo = new WebGLFrameBuffer(gl);
@@ -16,16 +49,12 @@ export class BloomPrePass extends EffectPass {
 			fs: fs
 		});
 
-		const thresh = 0.3;
-
-		let knee = thresh * 0.7 + 0.0001;
-		let curve = [thresh - knee, knee * 2, 0.25 / knee];
-
-		this.program.initUniforms({
+		Object.assign(this.uniforms, {
 			texelSize: { value: this.fbo.texelSize },
-			curve: { value: curve },
-			threshold: { value: thresh }
+			curve: { value: this.curve }
 		});
+
+		this.program.initUniforms(this.uniforms);
 	}
 
 	render(gl: GLContext, texture: WebGLTexture): WebGLTexture {
