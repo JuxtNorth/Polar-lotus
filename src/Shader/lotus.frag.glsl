@@ -112,9 +112,7 @@ void main() {
 	vec2 grid_offset = -(u_size / 2.0);
 	out_color += getGridColor(pixel, grid_offset, 32.0, 128.0);
 
-	vec2 mid = vec2(0.0, 0.0);
-
-	vec2 delta = mid - uv;
+	vec2 delta = -uv;
 	float dist = length(delta);
 	float theta = PI + atan(delta.y, delta.x);
 
