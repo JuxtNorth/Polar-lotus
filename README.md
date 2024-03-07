@@ -42,11 +42,8 @@ The lotus equation has been referenced from [podcollective](https://podcollectiv
 1. Refactoring the WebGL wrapper classes.
 2. Improving visuals.
 3. Add a vignette post processing effect.
-4. Adding more interactivity.
-5. Adding animations.
-6. Adding other equations while also making the Renderer class flexible.
-7. Making EffectComposer reuse FBOs in order to save memory.
-8. Optimisations.
+4. Adding other equations while also making the Renderer class flexible.
+5. Making EffectComposer reuse FBOs in order to save memory.
 
 ## License
 
