@@ -13,7 +13,7 @@ import type { Color } from '@/types';
 
 export interface RendererConfig {
 	rotation: UniformValue<number>;
-	scale: UniformValue<number>
+	scale: UniformValue<number>;
 	colorStop1: UniformValue<Color>;
 	colorStop2: UniformValue<Color>;
 }
