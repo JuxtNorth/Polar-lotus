@@ -7,8 +7,7 @@
 		"dev": "vite",
 		"build": "tsc && vite build",
 		"preview": "vite preview",
-		"format": "prettier . --write",
-		"deploy": "pnpm build && gh-pages -d dist"
+		"format": "prettier . --write"
 	},
 	"devDependencies": {
 		"@types/node": "^20.11.24",
