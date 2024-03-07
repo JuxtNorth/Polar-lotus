@@ -5,6 +5,7 @@ uniform vec2 uSize;
 uniform vec3 colorStop1;
 uniform vec3 colorStop2;
 uniform float rotation;
+uniform float scale;
 
 float r(float theta, float a, float b, float c) {
 	float numerator = abs(cos(theta * a)) + 0.25 - abs(cos(theta * a + PI / 2.0)) * 2.0;
@@ -29,22 +30,21 @@ float lotus(vec2 uv, float theta) {
 	float r1 = r(rotation0 + theta, 3.0, 6.0, 2.5);
 	float r2 = r(rotation1 + theta, 6.0, 12.0, 4.0);
 	float r3 = r(rotation2 + theta, 3.0, 6.0, 1.0);
-
-	float radius = 0.1;
+	
 	float cosTheta = cos(theta);
 	float sinTheta = sin(theta);
 
 	vec2 r1Coord = vec2(
-		r1 * radius * cosTheta,
-		r1 * radius * sinTheta
+		r1 * scale * cosTheta,
+		r1 * scale * sinTheta
 	);
 	vec2 r2Coord = vec2(
-		r2 * radius * cosTheta,
-		r2 * radius * sinTheta
+		r2 * scale * cosTheta,
+		r2 * scale * sinTheta
 	);
 	vec2 r3Coord = vec2(
-		r3 * radius * cosTheta,
-		r3 * radius * sinTheta
+		r3 * scale * cosTheta,
+		r3 * scale * sinTheta
 	);
 
 	float t = -1.0;

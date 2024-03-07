@@ -13,6 +13,7 @@ import type { Color } from '@/types';
 
 export interface RendererConfig {
 	rotation: UniformValue<number>;
+	scale: UniformValue<number>
 	colorStop1: UniformValue<Color>;
 	colorStop2: UniformValue<Color>;
 }
@@ -25,6 +26,7 @@ export class Renderer extends Canvas {
 
 	public config: {
 		rotation: UniformValue<number>;
+		scale: UniformValue<number>;
 		colorStop1: UniformValue<Color>;
 		colorStop2: UniformValue<Color>;
 	};
@@ -34,6 +36,7 @@ export class Renderer extends Canvas {
 
 		this.config = {
 			rotation: { value: 0.01 },
+			scale: { value: 0.1 },
 			colorStop1: { value: [1, 0, 0] },
 			colorStop2: { value: [1, 0, 1] }
 		};
@@ -82,6 +85,7 @@ export class Renderer extends Canvas {
 		this.shaderProgram.initUniforms({
 			uSize: { value: super.size },
 			rotation: this.config.rotation,
+			scale: this.config.scale,
 			colorStop1: this.config.colorStop1,
 			colorStop2: this.config.colorStop2
 		});
