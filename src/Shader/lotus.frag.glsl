@@ -1,17 +1,9 @@
 precision highp float;
-
-uniform vec2 uSize;
-
-bool isDivisble(float a, float b) {
-	float q = b / a;
-	return floor(a) - b == 0.0;
-}
-
 const float PI = 3.14159;
 
+uniform vec2 uSize;
 uniform vec3 colorStop1;
 uniform vec3 colorStop2;
-
 uniform float rotation;
 
 float r(float theta, float a, float b, float c) {
@@ -73,7 +65,7 @@ float lotus(vec2 uv, float theta) {
 
 vec3 getGridColor(vec2 coord, vec2 offset, float size1, float size2) {
 	vec3 outColor = vec3(0.0);
-
+  
 	coord += offset;
 
 	vec2 gap1 = vec2(size1);
@@ -100,7 +92,7 @@ void main() {
 	vec2 pixel = vec2(gl_FragCoord.xy);
 	vec2 uv = pixel - uSize * 0.5;
 	uv /= uSize.x;
-
+    
 	vec2 gridOffset = -(uSize / 2.0);
 	outColor += getGridColor(pixel, gridOffset, 32.0, 128.0);
 
