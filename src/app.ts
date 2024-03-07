@@ -3,6 +3,9 @@ import { Renderer } from '@/Renderer';
 import { EffectComposer, BlurPass, BloomPass } from '@/PostProcessing';
 import { Color } from '@/Math';
 import GUI from 'lil-gui';
+import { inject } from "@vercel/analytics";
+
+inject();
 
 const canvas = <HTMLCanvasElement>document.getElementById('renderer')!;
 

@@ -18,6 +18,7 @@
 		"vite-plugin-checker": "^0.6.4"
 	},
 	"dependencies": {
+		"@vercel/analytics": "^1.2.2",
 		"lil-gui": "^0.19.2"
 	}
 }
