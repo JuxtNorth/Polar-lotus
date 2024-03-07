@@ -53,6 +53,7 @@ function updateRenderer() {
 function setupGUI() {
 	const gui = new GUI();
 	gui.open(false);
+	gui.add(renderer.config.scale, 'value', 0.02, 0.64).name('scale');
 	const folder = gui.addFolder('Color');
 	folder.add(config, 'hue', 0, 360, 1).onChange(() => updateRenderer());
 	folder
